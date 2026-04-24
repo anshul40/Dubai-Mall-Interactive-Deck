@@ -1,0 +1,121 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  overflow-x: clip;
+  max-width: 100%;
+}
+
+#root {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+body {
+  @apply bg-ink text-mist antialiased font-sans;
+  overflow-x: clip;
+  max-width: 100%;
+}
+
+::selection {
+  background: rgba(201, 169, 98, 0.35);
+  color: #fff;
+}
+
+.grain {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  opacity: 0.045;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  animation: grain 8s steps(10) infinite;
+}
+
+@media (max-width: 767px) {
+  .grain {
+    opacity: 0.02;
+    animation: none;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /** Hide native scrollbars (Win/Brave/Chrome show horizontal bars on `overflow-x-auto`) — scrolling still works via wheel, trackpad, drag, focus. */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+}
+
+/* Seamless vertical rhythm — subtle tuck between chapters (avoid stacked cliffs) */
+.story-overlap {
+  margin-top: -1.5rem;
+  padding-top: 1.5rem;
+  position: relative;
+}
+
+@media (min-width: 768px) {
+  .story-overlap {
+    margin-top: -2rem;
+    padding-top: 2rem;
+  }
+}
+
+/* Premium card hover — GPU transforms only */
+.cinematic-card {
+  transform: translateZ(0);
+  transition:
+    transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.45s ease;
+  will-change: transform;
+}
+
+@media (max-width: 767px) {
+  .cinematic-card {
+    will-change: auto;
+  }
+}
+
+.cinematic-card:hover {
+  transform: translateY(-5px) scale(1.012) translateZ(0);
+  box-shadow: 0 36px 100px rgba(0, 0, 0, 0.55);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cinematic-card,
+  .cinematic-card:hover {
+    transform: none;
+    transition: none;
+  }
+}
