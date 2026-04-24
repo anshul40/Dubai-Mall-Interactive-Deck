@@ -92,5 +92,3 @@ npm run preview
 | `src/video/LazyVideo.tsx` | Intersection-based video + fallbacks |
 | `vercel.json` | SPA rewrite for static hosts |
 
-## License
-# Dubai-Mall-Interactive-Deck
